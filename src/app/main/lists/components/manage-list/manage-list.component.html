@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="manageListFormGroup" (ngSubmit)="handleSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Title *</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Ex. Poomba Tasks"
+        formControlName="title"
+      >
+      <mat-error *ngIf="hasError('title', 'minlength')">
+        Title must be at least <strong>3 Chars.</strong>
+      </mat-error>
+    </mat-form-field>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="50" fxFlex.lt-md="100">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input matInput
+                 [matDatepicker]="datepicker"
+                 formControlName="date"
+          >
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="50" fxFlex.lt-md="100"
+           fxLayoutAlign.gt-sm="center center"
+          fxLayoutAlign.lt-md="start center"
+      >
+        <mat-checkbox
+          color="accent"
+          formControlName="isMain">Set as Main List</mat-checkbox>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="mt-3">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" cdkFocusInitial>Save</button>
+    </div>
+  </form>
+</mat-dialog-content>
+

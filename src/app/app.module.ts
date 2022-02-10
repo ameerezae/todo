@@ -10,16 +10,35 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { EffectsModule } from "@ngrx/effects";
+
 
 // for importing components
 import { TodoLayoutComponent } from './layouts/todo-layout/todo-layout.component';
 import { AppComponent } from './app.component';
+import { ListsComponent } from './main/lists/components/lists/lists.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { ManageListComponent } from './main/lists/components/manage-list/manage-list.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ListsEffects} from "./main/lists/shared/store/lists.effects";
+import {StoreModule} from "@ngrx/store";
+import {AppReducer} from "./store/app.reducer";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoLayoutComponent
+    TodoLayoutComponent,
+    ListsComponent,
+    ManageListComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +49,19 @@ import { AppComponent } from './app.component';
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    EffectsModule.forRoot([ListsEffects]),
+    StoreModule.forRoot(AppReducer),
   ],
   providers: [],
   bootstrap: [AppComponent]

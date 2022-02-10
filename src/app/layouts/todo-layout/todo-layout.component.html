@@ -4,7 +4,8 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Lists</mat-toolbar>
-
+    <mat-divider></mat-divider>
+    <app-lists></app-lists>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">

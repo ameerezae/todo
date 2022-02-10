@@ -1,0 +1,33 @@
+mat-icon{
+  font-size: 14px;
+}
+
+.delete-icon, .edit-icon{
+  //position: absolute;
+  //display: none;
+  .list-item:hover &{
+    display: inline !important;
+  }
+}
+.delete-icon {
+  //right: 12px;
+}
+
+.edit-icon{
+  //right: 24px;
+}
+.mat-icon-button{
+  height:48px !important;
+  width:48px !important;
+  font-size:48px !important;
+}
+
+::ng-deep{
+  .mat-list-item-content{
+    padding: 0 !important;
+  }
+  .mat-list-text{
+    padding-right: 0 !important;
+    padding-left: 5px !important;
+  }
+}

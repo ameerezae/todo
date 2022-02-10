@@ -14,6 +14,8 @@ fetch('./assets/configs/configs.json').then(res => res.json()).then(confs => {
 
   AppSettings.ApiUrl = confs.apiUrl;
 
+  AppSettings.AllListsUrl = AppSettings.ApiUrl + confs.allListsUrl;
+
   platformBrowserDynamic().bootstrapModule(AppModule)
     .catch(err => console.error(err));
 })
