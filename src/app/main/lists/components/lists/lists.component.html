@@ -21,17 +21,23 @@
 <!--</mat-nav-list>-->
 
 <mat-selection-list [multiple]="false">
-  <mat-list-option  *ngFor="let list of lists" class="list-item" [value]="list">
+  <mat-list-option  *ngFor="let list of lists" class="list-item" [routerLink]="['lists', list._id]" [value]="list">
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-icon mat-list-icon>track_changes</mat-icon>
       <small>{{list.title}}</small>
       <div class="spacer"></div>
-      <button mat-icon-button class="delete-icon" (click)="deleteSingleList(list._id)">
+      <button *ngIf="!list.isMain" mat-icon-button class="delete-icon" (click)="deleteSingleList(list._id)">
         <mat-icon>delete_outline</mat-icon>
       </button>
       <button mat-icon-button class="edit-icon" (click)="editSingleList($event, list)">
         <mat-icon>edit_outline</mat-icon>
       </button>
+    </div>
+  </mat-list-option>
+  <mat-list-option class="list-item" [routerLink]="['..', 'completed']">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon mat-list-icon>track_changes</mat-icon>
+      <small>Completed Tasks</small>
     </div>
   </mat-list-option>
     <div fxLayout="row" fxLayoutAlign="center center" class="my-2">

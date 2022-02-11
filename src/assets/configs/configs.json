@@ -1,4 +1,7 @@
 {
   "apiUrl": "http://localhost:3000/",
-  "allListsUrl": "api/lists"
+  "allListsUrl": "api/lists",
+  "allTasksUrl": "api/tasks/",
+  "queryOnTasks": "query/",
+  "completedTasksUrl": "api/compeleted"
 }

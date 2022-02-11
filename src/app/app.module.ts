@@ -31,6 +31,11 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ListsEffects} from "./main/lists/shared/store/lists.effects";
 import {StoreModule} from "@ngrx/store";
 import {AppReducer} from "./store/app.reducer";
+import { TasksComponent } from './main/tasks/components/tasks/tasks.component';
+import {TasksEffects} from "./main/tasks/shared/store/tasks.effects";
+import { TasksBaseComponent } from './main/tasks/components/tasks-base/tasks-base.component';
+import { TasksShowComponent } from './main/tasks/components/tasks-show/tasks-show.component';
+import { CompletedTasksComponent } from './main/tasks/components/completed-tasks/completed-tasks.component';
 
 
 @NgModule({
@@ -38,7 +43,11 @@ import {AppReducer} from "./store/app.reducer";
     AppComponent,
     TodoLayoutComponent,
     ListsComponent,
-    ManageListComponent
+    ManageListComponent,
+    TasksComponent,
+    TasksBaseComponent,
+    TasksShowComponent,
+    CompletedTasksComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +69,7 @@ import {AppReducer} from "./store/app.reducer";
     MatNativeDateModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    EffectsModule.forRoot([ListsEffects]),
+    EffectsModule.forRoot([ListsEffects, TasksEffects]),
     StoreModule.forRoot(AppReducer),
   ],
   providers: [],

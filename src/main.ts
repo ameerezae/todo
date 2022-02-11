@@ -15,6 +15,9 @@ fetch('./assets/configs/configs.json').then(res => res.json()).then(confs => {
   AppSettings.ApiUrl = confs.apiUrl;
 
   AppSettings.AllListsUrl = AppSettings.ApiUrl + confs.allListsUrl;
+  AppSettings.AllTasksUrl = AppSettings.ApiUrl + confs.allTasksUrl;
+  AppSettings.TasksOfList = AppSettings.AllTasksUrl + confs.queryOnTasks;
+  AppSettings.CompletedTasksUrl = AppSettings.ApiUrl + confs.completedTasksUrl;
 
   platformBrowserDynamic().bootstrapModule(AppModule)
     .catch(err => console.error(err));

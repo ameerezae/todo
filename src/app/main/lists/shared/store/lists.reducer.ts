@@ -3,10 +3,12 @@ import * as ListsActions from './lists.actions'
 
 export interface ListsState {
   lists: ListModel[]
+  mainListID: string
 }
 
 const initialState: ListsState = {
-  lists : []
+  lists : [],
+  mainListID: '',
 }
 
 export function ListsReducer(
@@ -17,7 +19,13 @@ export function ListsReducer(
     case ListsActions.SET_ALL_LISTS : {
       return {
         ...state,
-        lists: action.lists
+        lists: action.lists,
+        mainListID: action.lists.filter(list => list.isMain == true)[0]._id
+      }
+    }
+    default:{
+      return {
+        ...state
       }
     }
   }
