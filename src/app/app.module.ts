@@ -19,7 +19,6 @@ import { AppComponent } from './app.component';
 import { ListsComponent } from './main/lists/components/lists/lists.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { ManageListComponent } from './main/lists/components/manage-list/manage-list.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -40,13 +39,15 @@ import { ManageTaskBaseComponent } from './main/tasks/components/manage-task/man
 import { CreateTaskComponent } from "./main/tasks/components/manage-task/create-task.component";
 import { EditTaskComponent } from './main/tasks/components/manage-task/edit-task.component';
 import {MatSelectModule} from "@angular/material/select";
+import { ManageListBaseComponent } from './main/lists/components/manage-list/manage-list-base.component';
+import { CreateListComponent } from './main/lists/components/manage-list/create-list.component';
+import { EditListComponent } from './main/lists/components/manage-list/edit-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoLayoutComponent,
     ListsComponent,
-    ManageListComponent,
     ListTasksComponent,
     TasksBaseComponent,
     TasksShowComponent,
@@ -54,6 +55,9 @@ import {MatSelectModule} from "@angular/material/select";
     ManageTaskBaseComponent,
     CreateTaskComponent,
     EditTaskComponent,
+    ManageListBaseComponent,
+    CreateListComponent,
+    EditListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ListsService} from "../../shared/services/lists.service";
 import {ListModel} from "../../../../shared/models/list.model";
 import {MatDialog} from "@angular/material/dialog";
-import {ManageListComponent} from "../manage-list/manage-list.component";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../../store/app.reducer";
 import * as ListsActions from '../../shared/store/lists.actions';
 import {Subscription} from "rxjs";
+import {CreateListComponent} from "../manage-list/create-list.component";
+import {EditListComponent} from "../manage-list/edit-list.component";
 
 @Component({
   selector: 'app-lists',
@@ -21,7 +21,8 @@ export class ListsComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private store: Store<AppState>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(new ListsActions.FetchAllLists())
@@ -32,22 +33,22 @@ export class ListsComponent implements OnInit, OnDestroy {
     this.listsSubscription.unsubscribe();
   }
 
-  listenToListsState(){
+  listenToListsState() {
     this.listsSubscription = this.store.select('lists').subscribe(listsState => {
       this.lists = listsState?.lists
     })
   }
 
-  openManageList(title: string, list: ListModel = null){
-    const createListDialogRef = this.dialog.open(ManageListComponent, {
-      width: '450px',
-      height: 'auto',
-      autoFocus: false,
-      data: {
-        title: title,
-        list: list
-      }
-    })
+  openManageList(list: ListModel = null) {
+    const data = list != null ? {list} : null
+    const createListDialogRef = this.dialog.open(
+      list == null ? CreateListComponent : EditListComponent,
+      {
+        width: '450px',
+        height: 'auto',
+        autoFocus: false,
+        data: data
+      })
   }
 
   deleteSingleList(id: string) {
@@ -56,7 +57,7 @@ export class ListsComponent implements OnInit, OnDestroy {
 
   editSingleList(event: Event, list: ListModel) {
     event.stopPropagation();
-    this.openManageList('Edit List', list)
+    this.openManageList(list)
   }
 
 }

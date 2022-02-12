@@ -4,10 +4,16 @@
       <mat-icon mat-list-icon>track_changes</mat-icon>
       <small>{{list.title}}</small>
       <div class="spacer"></div>
-      <button *ngIf="!list.isMain" mat-icon-button class="delete-icon" (click)="deleteSingleList(list._id)">
+      <button *ngIf="!list.isMain"
+              mat-icon-button
+              class="delete-icon"
+              (click)="deleteSingleList(list._id)">
         <mat-icon>delete_outline</mat-icon>
       </button>
-      <button mat-icon-button class="edit-icon" (click)="editSingleList($event, list)">
+      <button *ngIf="!list.isMain"
+              mat-icon-button
+              class="edit-icon"
+              (click)="editSingleList($event, list)">
         <mat-icon>edit_outline</mat-icon>
       </button>
     </div>
@@ -19,7 +25,7 @@
     </div>
   </mat-list-option>
     <div fxLayout="row" fxLayoutAlign="center center" class="my-2">
-      <button mat-stroked-button (click)="openManageList('Create New Task')">
+      <button mat-stroked-button (click)="openManageList()">
         <mat-icon>add</mat-icon>
         <small>Create New List</small>
       </button>
