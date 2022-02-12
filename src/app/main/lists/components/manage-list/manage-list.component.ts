@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ListsService} from "../../shared/services/lists.service";
-import {SnackService} from "../../../../shared/services/snack.service";
 import {AppState} from "../../../../store/app.reducer";
 import {Store} from "@ngrx/store";
 import * as ListsActions from '../../shared/store/lists.actions';
@@ -15,17 +13,14 @@ import {ListModel} from "../../../../shared/models/list.model";
 })
 export class ManageListComponent implements OnInit {
 
+  manageListFormGroup: FormGroup
   editingListId: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {title: string, list: ListModel},
     private formBuilder: FormBuilder,
-    private listsService: ListsService,
-    private snackService: SnackService,
     private store: Store<AppState>
   ) { }
-
-  manageListFormGroup: FormGroup
 
   ngOnInit(): void {
     this.manageListFormGroup = this.createFormBuilder();
@@ -35,7 +30,7 @@ export class ManageListComponent implements OnInit {
     }
   }
 
-  private createFormBuilder() {
+  private createFormBuilder(): FormGroup {
     const validations = {
       'title': [null, Validators.compose(
         [Validators.required, Validators.minLength(3)])

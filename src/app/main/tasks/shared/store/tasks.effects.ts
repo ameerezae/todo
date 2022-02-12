@@ -56,7 +56,8 @@ export class TasksEffects {
     ofType(TasksActions.DELETE_SINGLE_TASK),
     switchMap((action: TasksActions.DeleteSingleTask) =>
       this.tasksApiService.deleteSingleTask(action.task.id).pipe(map(response => {
-          this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list));
+        this.snackService.successMessage('Task Deleted Successfully.');
+        this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list));
           this.store.dispatch(new TasksActions.FetchCompletedTasks());
         }
       )))
@@ -66,10 +67,34 @@ export class TasksEffects {
   updateSingleTask = this.actions$.pipe(
     ofType(TasksActions.UPDATE_SINGLE_TASK),
     switchMap((action: TasksActions.UpdateSingleTask) =>
-      this.tasksApiService.updateSingleTask(action.task.id, action.updatingData).pipe(map(response => {
-        this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list))
-      })))
+      this.tasksApiService.updateSingleTask(action.task.id, action.updatingData)
+        .pipe(map(response => {
+          this.snackService.successMessage('Task Updated Successfully.')
+          const activeList = window.location.href.split('/').pop()
+          if (activeList == 'completed'){
+            this.store.dispatch(new TasksActions.FetchCompletedTasks());
+          }
+          this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list));
+          this.dialog.closeAll();
+        })))
   )
 
+  @Effect({dispatch: false})
+  createNewTask = this.actions$.pipe(
+    ofType(TasksActions.CREATE_NEW_TASK),
+    switchMap((action: TasksActions.CreateNewTask) =>
+    this.tasksApiService.createNewTask(action.title,
+      action.description,
+      action.date,
+      action.list)
+      .pipe(map(response => {
+        this.snackService.successMessage('Task Created Successfully.');
+        const activeList = window.location.href.split('/').pop()
+        if (activeList == action.list){
+          this.store.dispatch(new TasksActions.FetchTasksOfList(action.list));
+        }
+        this.dialog.closeAll();
+      })))
+  )
 
 }

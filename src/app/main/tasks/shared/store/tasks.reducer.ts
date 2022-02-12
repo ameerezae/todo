@@ -28,6 +28,12 @@ export function TasksReducer(
         completedTasks: action.tasks
       }
     }
+    case TasksActions.CLEAR_TASKS: {
+      return {
+        ...state,
+        tasksOfList: []
+      }
+    }
     default:{
       return {
         ...state

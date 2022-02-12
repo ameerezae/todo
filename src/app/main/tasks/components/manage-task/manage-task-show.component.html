@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="manageTaskFormGroup" (ngSubmit)="handleSubmit()">
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <div fxFlex="100">
+        <mat-form-field style="width: 100%" appearance="outline">
+          <mat-label>Title *</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Ex. Do Sth. Funny"
+            formControlName="title"
+          >
+          <mat-error *ngIf="hasError('title', 'minlength')">
+            Title must be at least <strong>3 Chars.</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100">
+        <mat-form-field appearance="outline">
+          <mat-label>Description *</mat-label>
+          <textarea
+            type="text"
+            matInput
+            placeholder="Add Description Here."
+            formControlName="description"
+          ></textarea>
+          <mat-error *ngIf="hasError('description', 'minlength')">
+            Description must be at least <strong>5 Chars.</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-sm="50" fxFlex.lt-md="100">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input matInput
+                 [matDatepicker]="datepicker"
+                 formControlName="date"
+          >
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex.gt-sm="50" fxFlex.lt-md="100">
+        <mat-form-field appearance="outline">
+          <mat-label>Select List</mat-label>
+          <mat-select formControlName="list">
+            <mat-option *ngFor="let list of lists"
+                        [value]="list._id"
+            >{{list.title}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="mt-3">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button type="submit" cdkFocusInitial>Save</button>
+    </div>
+  </form>
+
+</mat-dialog-content>

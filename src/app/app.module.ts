@@ -31,12 +31,15 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ListsEffects} from "./main/lists/shared/store/lists.effects";
 import {StoreModule} from "@ngrx/store";
 import {AppReducer} from "./store/app.reducer";
-import { TasksComponent } from './main/tasks/components/tasks/tasks.component';
+import {ListTasksComponent} from "./main/tasks/components/tasks/list-tasks.component";
 import {TasksEffects} from "./main/tasks/shared/store/tasks.effects";
-import { TasksBaseComponent } from './main/tasks/components/tasks-base/tasks-base.component';
-import { TasksShowComponent } from './main/tasks/components/tasks-show/tasks-show.component';
-import { CompletedTasksComponent } from './main/tasks/components/completed-tasks/completed-tasks.component';
-
+import { TasksBaseComponent } from './main/tasks/components/tasks/tasks-base.component';
+import { TasksShowComponent } from './main/tasks/components/tasks/tasks-show.component';
+import { CompletedTasksComponent } from './main/tasks/components/tasks/completed-tasks.component';
+import { ManageTaskBaseComponent } from './main/tasks/components/manage-task/manage-task-base.component';
+import { CreateTaskComponent } from "./main/tasks/components/manage-task/create-task.component";
+import { EditTaskComponent } from './main/tasks/components/manage-task/edit-task.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -44,10 +47,13 @@ import { CompletedTasksComponent } from './main/tasks/components/completed-tasks
     TodoLayoutComponent,
     ListsComponent,
     ManageListComponent,
-    TasksComponent,
+    ListTasksComponent,
     TasksBaseComponent,
     TasksShowComponent,
-    CompletedTasksComponent
+    CompletedTasksComponent,
+    ManageTaskBaseComponent,
+    CreateTaskComponent,
+    EditTaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +77,7 @@ import { CompletedTasksComponent } from './main/tasks/components/completed-tasks
     MatSnackBarModule,
     EffectsModule.forRoot([ListsEffects, TasksEffects]),
     StoreModule.forRoot(AppReducer),
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

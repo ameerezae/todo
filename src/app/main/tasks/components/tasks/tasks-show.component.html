@@ -1,0 +1,24 @@
+<h2>{{title}}</h2>
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" *ngFor="let task of tasks">
+    <div fxFlex="50" fxLayoutAlign="start center">
+      <mat-checkbox *ngIf="allowedActions.completable"
+                    [checked]="task.done"
+                    (change)="toggleCompleteTask(task, $event)"></mat-checkbox>
+      <p>
+        {{task.title}}
+      </p>
+      <div class="spacer"></div>
+      <button *ngIf="allowedActions.editable" (click)="editExistingTask(task)">edit</button>
+      <button *ngIf="allowedActions.deletable" (click)="deleteTask(task)">delete</button>
+      <button *ngIf="allowedActions.movable" (click)="moveTaskToDailyList(task)">move</button>
+    </div>
+  </div>
+</div>
+
+<button mat-fab
+        color="primary"
+        (click)="createNewTask()"
+        style="position:fixed; bottom: 40px; right: 50px">
+  <mat-icon>add</mat-icon>
+</button>

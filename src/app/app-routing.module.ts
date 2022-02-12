@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {TodoLayoutComponent} from "./layouts/todo-layout/todo-layout.component";
-import {TasksComponent} from "./main/tasks/components/tasks/tasks.component";
-import {CompletedTasksComponent} from "./main/tasks/components/completed-tasks/completed-tasks.component";
+import {CompletedTasksComponent} from "./main/tasks/components/tasks/completed-tasks.component";
+import {ListTasksComponent} from "./main/tasks/components/tasks/list-tasks.component";
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'lists/:id',
-        component: TasksComponent
+        component: ListTasksComponent
       },
       {
         path: 'completed',

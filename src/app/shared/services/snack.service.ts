@@ -5,11 +5,11 @@ import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
   {providedIn: 'root'}
 )
 export class SnackService {
-  autoHide: number = 40000;
+
   config: MatSnackBarConfig = {
     duration: 4000,
     verticalPosition: "bottom",
-    horizontalPosition: "end",
+    horizontalPosition: "start",
   }
   constructor(private snack: MatSnackBar) {
   }

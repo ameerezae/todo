@@ -7,6 +7,8 @@ export const FETCH_COMPLETED_TASKS = '[Tasks] Fetch completed tasks';
 export const SET_COMPLETED_TASKS = '[Tasks] Set completed tasks';
 export const DELETE_SINGLE_TASK = '[Tasks] Delete single tasks';
 export const UPDATE_SINGLE_TASK = '[Tasks] Update single task';
+export const CLEAR_TASKS = '[Tasks] Clear tasks';
+export const CREATE_NEW_TASK = '[Tasks] Create new task';
 
 export class FetchTasksOfList implements Action{
   readonly type = FETCH_TASKS_OF_LIST;
@@ -46,6 +48,21 @@ export class UpdateSingleTask implements Action{
   }
 }
 
+export class ClearTasks implements Action {
+  readonly type = CLEAR_TASKS;
+}
+
+export class CreateNewTask implements Action{
+  readonly type = CREATE_NEW_TASK;
+
+  constructor(public title: string,
+              public description: string,
+              public date: string,
+              public list: string) {
+  }
+}
+
 export type TasksActions =
   | SetTasksOfList
   | SetCompletedTasks
+  | ClearTasks

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TasksBaseComponent} from "../tasks-base/tasks-base.component";
+import {TasksBaseComponent} from "./tasks-base.component";
 import {TaskActionsModel} from "../../../../shared/models/task.model";
 import * as TasksActions from '../../shared/store/tasks.actions'
 
@@ -7,13 +7,18 @@ import * as TasksActions from '../../shared/store/tasks.actions'
   selector: 'app-completed-tasks',
   template: `<app-tasks-show [tasks]="completedTasks"
                              (delete)="deleteSingleTask($event)"
+                             (create)="openManageTask()"
+                             title="Completed Tasks"
                              [allowedActions]="allowedActionsForTasks"></app-tasks-show>`,
 })
 export class CompletedTasksComponent extends TasksBaseComponent implements OnInit {
-  override allowedActionsForTasks = new TaskActionsModel(false, true, false);
 
   override fetchTasks() {
     this.store.dispatch(new TasksActions.FetchCompletedTasks());
   }
 
+  override chooseAllowedActionsForTasks() {
+    this.allowedActionsForTasks =
+      new TaskActionsModel(false, true, false, false);
+  }
 }

@@ -34,7 +34,7 @@ export class ListsEffects {
       this.listsService.createNewList(action.title, action.date, action.isMain).pipe(map(
         response => {
           this.dialog.closeAll();
-          this.snackService.successMessage('Created Successfully');
+          this.snackService.successMessage('List Created Successfully');
           this.store.dispatch(new ListsActions.FetchAllLists());
         })
       ))
@@ -47,7 +47,7 @@ export class ListsEffects {
       this.listsService.editExistingList(action.id, action.title, action.date, action.isMain).pipe(map(
         response => {
           this.dialog.closeAll();
-          this.snackService.successMessage('Edited Successfully');
+          this.snackService.successMessage('List Edited Successfully');
           this.store.dispatch(new ListsActions.FetchAllLists());
         }
       )))
@@ -59,7 +59,7 @@ export class ListsEffects {
     switchMap((action: ListsActions.DeleteExistingList) =>
       this.listsService.deleteExistingList(action.id).pipe(map(
         response => {
-          this.snackService.successMessage('Deleted Successfully.')
+          this.snackService.successMessage('List Deleted Successfully.')
           this.store.dispatch(new ListsActions.FetchAllLists())
         }
       )))

@@ -28,4 +28,16 @@ export class TasksApiService {
   updateSingleTask(id: string, updatingData: any){
     return this.http.put(this.allTasksUrl + id, updatingData)
   }
+
+  createNewTask(title: string, description: string,
+                date: string, list: string) {
+    const newTask = {
+      title: title,
+      description: description,
+      date: date,
+      list: list,
+      done: false
+    }
+    return this.http.post(this.allTasksUrl, newTask)
+  }
 }

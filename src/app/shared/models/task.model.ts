@@ -15,6 +15,7 @@ export class TaskActionsModel {
     public editable: boolean = true,
     public deletable: boolean = true,
     public movable: boolean = true,
+    public completable: boolean = true
   ) {
   }
 }

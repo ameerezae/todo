@@ -2,27 +2,31 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as TasksActions from '../../shared/store/tasks.actions';
 import {TaskActionsModel, TaskModel} from "../../../../shared/models/task.model";
 import {Subscription} from "rxjs";
-import {TasksBaseComponent} from "../tasks-base/tasks-base.component";
+import {TasksBaseComponent} from "./tasks-base.component";
 
 @Component({
-  selector: 'app-tasks',
+  selector: 'app-list-tasks',
   template: `
     <app-tasks-show [tasks]="tasks"
                     (delete)="deleteSingleTask($event)"
                     (move)="moveTaskToDailyList($event)"
+                    (create)="openManageTask()"
+                    (edit)="openManageTask($event)"
+                    (complete)="completeSingleTask($event)"
+                    [title]="currentListTitle"
                     [allowedActions]="allowedActionsForTasks"></app-tasks-show>`,
 })
-export class TasksComponent extends TasksBaseComponent implements OnInit, OnDestroy {
+export class ListTasksComponent extends TasksBaseComponent implements OnInit, OnDestroy {
 
   mainListID: string;
   currentListID: string;
+  currentListTitle: string;
   listsSubscription: Subscription;
-
 
   override fetchTasks() {
     this.activatedRoute.params.subscribe(param => {
       this.currentListID = param['id'];
-      this.chooseAllowedActionsForTasks();
+      this.store.dispatch(new TasksActions.ClearTasks());
       this.getTasks();
     });
   }
@@ -38,13 +42,17 @@ export class TasksComponent extends TasksBaseComponent implements OnInit, OnDest
     ))
   }
 
-  chooseAllowedActionsForTasks() {
+  override chooseAllowedActionsForTasks() {
     this.listsSubscription = this.store.select("lists").subscribe(listsState => {
-      this.mainListID = listsState.mainListID;
+      this.currentListTitle = listsState?.lists.find(list => {
+        return list._id == this.currentListID
+      })?.title
+      this.mainListID = listsState?.mainListID;
+      this.allowedActionsForTasks = this.currentListID == this.mainListID ?
+        new TaskActionsModel(true, true, false, true) :
+        new TaskActionsModel();
     })
-    this.allowedActionsForTasks = this.currentListID == this.mainListID ?
-      new TaskActionsModel(true, true, false) :
-      new TaskActionsModel();
+
   }
 
   moveTaskToDailyList(task: TaskModel) {
@@ -55,5 +63,7 @@ export class TasksComponent extends TasksBaseComponent implements OnInit, OnDest
       }
     ))
   }
+
+
 
 }
