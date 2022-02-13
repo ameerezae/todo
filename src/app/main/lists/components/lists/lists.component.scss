@@ -1,26 +1,29 @@
-mat-icon{
-  font-size: 14px;
+button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .delete-icon, .edit-icon{
-  //position: absolute;
-  //display: none;
+  display: none;
+  font-size: 18px;
+  & mat-icon{
+    font-size: 14px !important;
+  }
   .list-item:hover &{
-    display: inline !important;
+    display: flex !important;
   }
 }
-.delete-icon {
-  //right: 12px;
+
+.list-item{
+  white-space:nowrap;
+  &:hover small{
+    text-overflow: ellipsis;
+    overflow:hidden;
+    width: 150px;
+  }
 }
 
-.edit-icon{
-  //right: 24px;
-}
-.mat-icon-button{
-  height:48px !important;
-  width:48px !important;
-  font-size:48px !important;
-}
 
 ::ng-deep{
   .mat-list-item-content{
@@ -29,5 +32,12 @@ mat-icon{
   .mat-list-text{
     padding-right: 0 !important;
     padding-left: 5px !important;
+  }
+  .mat-list-icon{
+    font-size: 16px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
   }
 }

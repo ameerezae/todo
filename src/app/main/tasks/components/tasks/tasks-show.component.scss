@@ -1,0 +1,21 @@
+.list-title{
+  position: absolute;
+  top: 25px;
+  left: 60px;
+  z-index: 10;
+  font-weight: bold;
+  color: white;
+  @media screen and (max-width: 600px) {
+    top: 20px;
+  }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #54AF51 !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #54AF51;
+}
+

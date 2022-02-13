@@ -34,7 +34,7 @@ export class ManageTaskBaseComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.minLength(3)])],
       'description': [null, Validators.compose(
         [Validators.required, Validators.minLength(5)])],
-      'date': [null, Validators.required],
+      'date': [new Date(), Validators.required],
       'list': [null, Validators.required]
     }
     return this.formBuilder.group(validations)

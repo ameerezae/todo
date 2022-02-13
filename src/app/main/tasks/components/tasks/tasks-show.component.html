@@ -1,22 +1,66 @@
-<h2>{{title}}</h2>
-<div fxLayout="row wrap">
-  <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" *ngFor="let task of tasks">
-    <div fxFlex="50" fxLayoutAlign="start center">
+<div class="list-title">
+  <span>
+    {{title}}
+  </span>
+</div>
+<div fxLayout="row wrap" class="mt-1">
+  <div fxFlex="100" class="mb-1" fxLayoutAlign="center center">
+    <h2>TASKS</h2>
+  </div>
+  <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" *ngFor="let task of tasks">
+    <div fxFlex.gt-sm="60"
+         fxFlex.lt-md="65"
+         fxFlex.lt-sm="80" fxLayoutAlign="start center">
       <mat-checkbox *ngIf="allowedActions.completable"
                     [checked]="task.done"
+                    class="mr-1"
+                    matTooltip="Set As Completed"
+                    matTooltipPosition="above"
                     (change)="toggleCompleteTask(task, $event)"></mat-checkbox>
       <p>
         {{task.title}}
       </p>
+      <small class="ml-1" fxHide.lt-md>
+          {{(task.description.length > 50) ?
+          (task.description | slice:0:50) + '..' :
+          (task.description)}}
+      </small>
       <div class="spacer"></div>
-      <button *ngIf="allowedActions.editable" (click)="editExistingTask(task)">edit</button>
-      <button *ngIf="allowedActions.deletable" (click)="deleteTask(task)">delete</button>
-      <button *ngIf="allowedActions.movable" (click)="moveTaskToDailyList(task)">move</button>
+      <button *ngIf="allowedActions.editable"
+              mat-icon-button
+              color="primary"
+              matTooltip="Edit Task"
+              matTooltipPosition="above"
+              (click)="editExistingTask(task)">
+        <mat-icon>edit_outline</mat-icon>
+      </button>
+      <button *ngIf="allowedActions.movable"
+              mat-icon-button
+              color="primary"
+              class="mx-half"
+              matTooltip="Move To Main List"
+              matTooltipPosition="above"
+              (click)="moveTaskToDailyList(task)">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+      <button *ngIf="allowedActions.deletable"
+              mat-icon-button
+              color="warn"
+              matTooltip="Delete Task"
+              matTooltipPosition="above"
+              (click)="deleteTask(task)">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+    </div>
+    <div fxFlex.gt-sm="70" fxFlex.lt-md="75" fxFlex.lt-sm="85">
+      <mat-divider></mat-divider>
     </div>
   </div>
 </div>
 
 <button mat-fab
+        matTooltip="Create New Task"
+        matTooltipPosition="above"
         color="primary"
         (click)="createNewTask()"
         style="position:fixed; bottom: 40px; right: 50px">

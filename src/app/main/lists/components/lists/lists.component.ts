@@ -8,7 +8,7 @@ import * as ListsActions from '../../shared/store/lists.actions';
 import {Subscription} from "rxjs";
 import {CreateListComponent} from "../manage-list/create-list.component";
 import {EditListComponent} from "../manage-list/edit-list.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-lists',

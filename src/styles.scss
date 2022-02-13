@@ -20,7 +20,7 @@ $todo-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$todo-theme: mat.define-dark-theme((
+$todo-theme: mat.define-light-theme((
   color: (
     primary: $todo-primary,
     accent: $todo-accent,

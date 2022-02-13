@@ -3,7 +3,10 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Lists</mat-toolbar>
+    <mat-toolbar>
+      <mat-icon color="primary" class="mr-half">view_week</mat-icon>
+      Lists
+    </mat-toolbar>
     <mat-divider></mat-divider>
     <app-lists></app-lists>
   </mat-sidenav>
@@ -17,7 +20,8 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>todos</span>
+<!--      <span>todos</span>-->
+      <img fxHide.lt-md src="/assets/images/logo.png" alt="logo" width="35">
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

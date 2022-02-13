@@ -1,33 +1,44 @@
 <mat-selection-list [multiple]="false">
-  <mat-list-option  *ngFor="let list of lists" class="list-item" [routerLink]="['lists', list._id]" [value]="list">
+  <mat-list-option *ngFor="let list of lists"
+                   class="list-item"
+                   [routerLink]="['lists', list._id]"
+                   [value]="list">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <mat-icon mat-list-icon>track_changes</mat-icon>
-      <small>{{list.title}}</small>
+      <mat-icon mat-list-icon color="primary">assignments</mat-icon>
+      <small>
+        {{(list.title.length > 15) ?
+        (list.title | slice:0:15) + '..' :
+        (list.title)}}
+      </small>
       <div class="spacer"></div>
       <button *ngIf="!list.isMain"
               mat-icon-button
-              class="delete-icon"
-              (click)="deleteSingleList(list._id)">
-        <mat-icon>delete_outline</mat-icon>
+              color="primary"
+              matTooltip="Edit List"
+              matTooltipPosition="above"
+              (click)="editSingleList($event, list)">
+        <mat-icon class="edit-icon">edit_outline</mat-icon>
       </button>
       <button *ngIf="!list.isMain"
               mat-icon-button
-              class="edit-icon"
-              (click)="editSingleList($event, list)">
-        <mat-icon>edit_outline</mat-icon>
+              color="warn"
+              matTooltip="Delete List"
+              matTooltipPosition="above"
+              (click)="deleteSingleList(list._id)">
+        <mat-icon class="delete-icon">delete_outline</mat-icon>
       </button>
     </div>
   </mat-list-option>
   <mat-list-option class="list-item" [routerLink]="['..', 'completed']">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <mat-icon mat-list-icon>track_changes</mat-icon>
+      <mat-icon mat-list-icon color="primary">assignments</mat-icon>
       <small>Completed Tasks</small>
     </div>
   </mat-list-option>
-    <div fxLayout="row" fxLayoutAlign="center center" class="my-2">
-      <button mat-stroked-button (click)="openManageList()">
-        <mat-icon>add</mat-icon>
-        <small>Create New List</small>
-      </button>
-    </div>
+  <div fxLayout="row" fxLayoutAlign="center center" class="my-2">
+    <button mat-stroked-button color="primary" (click)="openManageList()">
+      <mat-icon>add</mat-icon>
+      <small>Create New List</small>
+    </button>
+  </div>
 </mat-selection-list>

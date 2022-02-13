@@ -37,7 +37,7 @@ export class ManageListBaseComponent implements OnInit {
       'title': [null, Validators.compose(
         [Validators.required, Validators.minLength(3)])
       ],
-      'date': [null, Validators.required],
+      'date': [new Date(), Validators.required],
       'isMain': false
     }
     return this.formBuilder.group(validations);

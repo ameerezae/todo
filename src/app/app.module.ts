@@ -42,6 +42,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { ManageListBaseComponent } from './main/lists/components/manage-list/manage-list-base.component';
 import { CreateListComponent } from './main/lists/components/manage-list/create-list.component';
 import { EditListComponent } from './main/lists/components/manage-list/edit-list.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { EditListComponent } from './main/lists/components/manage-list/edit-list
     EffectsModule.forRoot([ListsEffects, TasksEffects]),
     StoreModule.forRoot(AppReducer),
     MatSelectModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

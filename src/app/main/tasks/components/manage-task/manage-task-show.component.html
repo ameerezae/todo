@@ -32,7 +32,7 @@
       </div>
     </div>
     <div fxLayout="row wrap">
-      <div fxFlex.gt-sm="50" fxFlex.lt-md="100">
+      <div fxFlex.gt-sm="49" fxFlex.lt-md="100">
         <mat-form-field appearance="outline">
           <mat-label>Choose a date</mat-label>
           <input matInput
@@ -44,7 +44,8 @@
           </mat-datepicker>
         </mat-form-field>
       </div>
-      <div fxFlex.gt-sm="50" fxFlex.lt-md="100" *ngIf="title == 'Create Task'">
+      <div fxFlex.gt-sm="2"></div>
+      <div fxFlex.gt-sm="49" fxFlex.lt-md="100" *ngIf="title == 'Create Task'">
         <mat-form-field appearance="outline">
           <mat-label>Select List</mat-label>
           <mat-select formControlName="list">
@@ -57,7 +58,13 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="end center" class="mt-3">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button type="submit" cdkFocusInitial>Save</button>
+      <button mat-button
+              color="primary"
+              type="submit"
+              cdkFocusInitial>
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
     </div>
   </form>
 
