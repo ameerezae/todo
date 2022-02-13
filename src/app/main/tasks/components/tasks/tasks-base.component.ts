@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TaskActionsModel, TaskModel} from "../../../../shared/models/task.model";
 import {Subscription} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../../store/app.reducer";
 import * as TasksActions from '../../shared/store/tasks.actions';
@@ -24,6 +24,7 @@ export class TasksBaseComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected store: Store<AppState>,
     protected dialog: MatDialog,
+    protected router: Router
   ) {
   }
 

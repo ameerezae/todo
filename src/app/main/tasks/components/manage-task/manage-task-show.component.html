@@ -44,7 +44,7 @@
           </mat-datepicker>
         </mat-form-field>
       </div>
-      <div fxFlex.gt-sm="50" fxFlex.lt-md="100">
+      <div fxFlex.gt-sm="50" fxFlex.lt-md="100" *ngIf="title == 'Create Task'">
         <mat-form-field appearance="outline">
           <mat-label>Select List</mat-label>
           <mat-select formControlName="list">

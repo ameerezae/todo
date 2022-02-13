@@ -10,6 +10,11 @@ const routes: Routes = [
     component: TodoLayoutComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'lists/main',
+      },
+      {
         path: 'lists/:id',
         component: ListTasksComponent
       },
@@ -18,6 +23,10 @@ const routes: Routes = [
         component: CompletedTasksComponent
       }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: 'lists/main'
   },
 ];
 

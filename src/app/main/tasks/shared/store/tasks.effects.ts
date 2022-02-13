@@ -5,9 +5,10 @@ import {TasksApiService} from "../services/tasks-api.service";
 import {SnackService} from "../../../../shared/services/snack.service";
 import {MatDialog} from "@angular/material/dialog";
 import * as TasksActions from './tasks.actions';
-import {switchMap} from "rxjs";
+import {catchError, of, switchMap} from "rxjs";
 import {map} from "rxjs/operators";
 import {TaskModel} from "../../../../shared/models/task.model";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class TasksEffects {
@@ -16,7 +17,8 @@ export class TasksEffects {
     private store: Store,
     private tasksApiService: TasksApiService,
     private snackService: SnackService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
   }
 
@@ -33,9 +35,14 @@ export class TasksEffects {
   fetchTasksOfList = this.actions$.pipe(
     ofType(TasksActions.FETCH_TASKS_OF_LIST),
     switchMap((action: TasksActions.FetchTasksOfList) =>
-      this.tasksApiService.getTasksOfList(action.ListID).pipe(map((tasks) => {
-        return new TasksActions.SetTasksOfList(this.mapIntoTaskModel(tasks))
-      })))
+      this.tasksApiService.getTasksOfList(action.ListID).pipe(
+        map((tasks) => {
+          return new TasksActions.SetTasksOfList(this.mapIntoTaskModel(tasks))
+        }), catchError( () => {
+          this.snackService.errorMessage('This List Is Invalid');
+          this.router.navigate([`lists/main`])
+          return of(new TasksActions.SetTasksOfList([]))
+        })))
   )
 
   private mapIntoTaskModel(tasks: any) {
@@ -56,8 +63,8 @@ export class TasksEffects {
     ofType(TasksActions.DELETE_SINGLE_TASK),
     switchMap((action: TasksActions.DeleteSingleTask) =>
       this.tasksApiService.deleteSingleTask(action.task.id).pipe(map(response => {
-        this.snackService.successMessage('Task Deleted Successfully.');
-        this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list));
+          this.snackService.successMessage('Task Deleted Successfully.');
+          this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list));
           this.store.dispatch(new TasksActions.FetchCompletedTasks());
         }
       )))
@@ -71,7 +78,7 @@ export class TasksEffects {
         .pipe(map(response => {
           this.snackService.successMessage('Task Updated Successfully.')
           const activeList = window.location.href.split('/').pop()
-          if (activeList == 'completed'){
+          if (activeList == 'completed') {
             this.store.dispatch(new TasksActions.FetchCompletedTasks());
           }
           this.store.dispatch(new TasksActions.FetchTasksOfList(action.task.list));
@@ -83,18 +90,18 @@ export class TasksEffects {
   createNewTask = this.actions$.pipe(
     ofType(TasksActions.CREATE_NEW_TASK),
     switchMap((action: TasksActions.CreateNewTask) =>
-    this.tasksApiService.createNewTask(action.title,
-      action.description,
-      action.date,
-      action.list)
-      .pipe(map(response => {
-        this.snackService.successMessage('Task Created Successfully.');
-        const activeList = window.location.href.split('/').pop()
-        if (activeList == action.list){
-          this.store.dispatch(new TasksActions.FetchTasksOfList(action.list));
-        }
-        this.dialog.closeAll();
-      })))
+      this.tasksApiService.createNewTask(action.title,
+        action.description,
+        action.date,
+        action.list)
+        .pipe(map(response => {
+          this.snackService.successMessage('Task Created Successfully.');
+          const activeList = window.location.href.split('/').pop()
+          if (activeList == action.list) {
+            this.store.dispatch(new TasksActions.FetchTasksOfList(action.list));
+          }
+          this.dialog.closeAll();
+        })))
   )
 
 }

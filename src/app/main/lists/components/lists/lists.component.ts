@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Location } from "@angular/common";
 import {ListModel} from "../../../../shared/models/list.model";
 import {MatDialog} from "@angular/material/dialog";
 import {Store} from "@ngrx/store";
@@ -7,6 +8,7 @@ import * as ListsActions from '../../shared/store/lists.actions';
 import {Subscription} from "rxjs";
 import {CreateListComponent} from "../manage-list/create-list.component";
 import {EditListComponent} from "../manage-list/edit-list.component";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-lists',
@@ -20,7 +22,9 @@ export class ListsComponent implements OnInit, OnDestroy {
 
   constructor(
     private dialog: MatDialog,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private location: Location,
+    private router: Router,
   ) {
   }
 
@@ -36,7 +40,15 @@ export class ListsComponent implements OnInit, OnDestroy {
   listenToListsState() {
     this.listsSubscription = this.store.select('lists').subscribe(listsState => {
       this.lists = listsState?.lists
+      this.navigateToMainListForInvalidPath(listsState.mainListID)
     })
+  }
+
+  navigateToMainListForInvalidPath(mainListId: string){
+    const activeList = window.location.href.split('/').pop()
+    if (activeList == 'main' && mainListId){
+      this.router.navigate([`lists/${mainListId}`])
+    }
   }
 
   openManageList(list: ListModel = null) {

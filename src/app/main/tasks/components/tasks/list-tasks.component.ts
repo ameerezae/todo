@@ -27,7 +27,9 @@ export class ListTasksComponent extends TasksBaseComponent implements OnInit, On
     this.activatedRoute.params.subscribe(param => {
       this.currentListID = param['id'];
       this.store.dispatch(new TasksActions.ClearTasks());
-      this.getTasks();
+      if (this.currentListID != 'main'){
+        this.getTasks();
+      }
     });
   }
 
