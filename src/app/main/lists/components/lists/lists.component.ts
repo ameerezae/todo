@@ -29,7 +29,7 @@ export class ListsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new ListsActions.FetchAllLists())
+    this.store.dispatch(new ListsActions.CheckForMainAndFetchList())
     this.listenToListsState();
   }
 

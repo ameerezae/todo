@@ -10,6 +10,7 @@ import {map} from "rxjs/operators";
 export class ListsService {
 
   private allListsUrl = AppSettings.AllListsUrl;
+  private mainList = AppSettings.mainList;
 
   constructor(private http: HttpClient) {
   }
@@ -46,5 +47,9 @@ export class ListsService {
 
   deleteExistingList(id: string) {
     return this.http.delete(this.allListsUrl + `/${id}`)
+  }
+
+  getMainLists(){
+    return this.http.get(this.mainList)
   }
 }

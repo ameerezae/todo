@@ -3,5 +3,6 @@
   "allListsUrl": "api/lists",
   "allTasksUrl": "api/tasks/",
   "queryOnTasks": "query/",
-  "completedTasksUrl": "api/compeleted"
+  "completedTasksUrl": "api/compeleted",
+  "mainList": "api/mainList"
 }

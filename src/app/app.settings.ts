@@ -8,4 +8,5 @@ export class AppSettings {
   public static AllTasksUrl: string;
   public static TasksOfList: string;
   public static CompletedTasksUrl: string;
+  public static mainList: string;
 }
