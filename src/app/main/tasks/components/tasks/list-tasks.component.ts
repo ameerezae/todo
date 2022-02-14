@@ -8,6 +8,7 @@ import {TasksBaseComponent} from "./tasks-base.component";
   selector: 'app-list-tasks',
   template: `
     <app-tasks-show [tasks]="tasks"
+                    [isFetched]="isFetched"
                     (delete)="deleteSingleTask($event)"
                     (move)="moveTaskToDailyList($event)"
                     (create)="openManageTask()"

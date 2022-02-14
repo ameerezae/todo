@@ -5,7 +5,7 @@ import {TasksApiService} from "../services/tasks-api.service";
 import {SnackService} from "../../../../shared/services/snack.service";
 import {MatDialog} from "@angular/material/dialog";
 import * as TasksActions from './tasks.actions';
-import {catchError, of, switchMap} from "rxjs";
+import {catchError, of, pipe, switchMap} from "rxjs";
 import {map} from "rxjs/operators";
 import {TaskModel} from "../../../../shared/models/task.model";
 import {Router} from "@angular/router";
@@ -25,24 +25,28 @@ export class TasksEffects {
   @Effect()
   fetchCompletedTasks = this.actions$.pipe(
     ofType(TasksActions.FETCH_COMPLETED_TASKS),
-    switchMap((action: TasksActions.FetchCompletedTasks) =>
-      this.tasksApiService.getCompletedTasks().pipe(map(tasks => {
+    switchMap((action: TasksActions.FetchCompletedTasks) => {
+      this.store.dispatch(new TasksActions.SetFetchingTaskStatus(false))
+      return this.tasksApiService.getCompletedTasks().pipe(map(tasks => {
         return new TasksActions.SetCompletedTasks(this.mapIntoTaskModel(tasks))
-      })))
+      }))
+    })
   )
 
   @Effect()
   fetchTasksOfList = this.actions$.pipe(
     ofType(TasksActions.FETCH_TASKS_OF_LIST),
-    switchMap((action: TasksActions.FetchTasksOfList) =>
-      this.tasksApiService.getTasksOfList(action.ListID).pipe(
+    switchMap((action: TasksActions.FetchTasksOfList) => {
+      this.store.dispatch(new TasksActions.SetFetchingTaskStatus(false))
+      return this.tasksApiService.getTasksOfList(action.ListID).pipe(
         map((tasks) => {
           return new TasksActions.SetTasksOfList(this.mapIntoTaskModel(tasks))
-        }), catchError( () => {
+        }), catchError(() => {
           this.snackService.errorMessage('This List Is Invalid');
           this.router.navigate([`lists/main`])
           return of(new TasksActions.SetTasksOfList([]))
-        })))
+        }))
+    })
   )
 
   private mapIntoTaskModel(tasks: any) {

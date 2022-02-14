@@ -6,6 +6,7 @@ import * as TasksActions from '../../shared/store/tasks.actions'
 @Component({
   selector: 'app-completed-tasks',
   template: `<app-tasks-show [tasks]="completedTasks"
+                             [isFetched]="isFetched"
                              (delete)="deleteSingleTask($event)"
                              (create)="openManageTask()"
                              title="Completed Tasks"

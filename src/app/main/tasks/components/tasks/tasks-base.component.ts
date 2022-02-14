@@ -17,6 +17,7 @@ export class TasksBaseComponent implements OnInit, OnDestroy {
 
   tasks: TaskModel[];
   completedTasks: TaskModel[];
+  isFetched: boolean = false;
   allowedActionsForTasks: TaskActionsModel;
   tasksSubscription: Subscription;
 
@@ -38,6 +39,7 @@ export class TasksBaseComponent implements OnInit, OnDestroy {
     this.tasksSubscription = this.store.select('tasks').subscribe(tasksState => {
       this.tasks = tasksState.tasksOfList;
       this.completedTasks = tasksState.completedTasks;
+      this.isFetched = tasksState.isFetched;
     })
   }
 

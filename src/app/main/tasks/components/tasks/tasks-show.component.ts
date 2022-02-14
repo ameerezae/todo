@@ -11,6 +11,7 @@ export class TasksShowComponent implements OnInit {
   @Input() title: string
   @Input() tasks: TaskModel[];
   @Input() allowedActions: TaskActionsModel;
+  @Input() isFetched: boolean;
   @Output() delete = new EventEmitter();
   @Output() move = new EventEmitter();
   @Output() create = new EventEmitter();

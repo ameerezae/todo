@@ -24,7 +24,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {StoreModule} from "@ngrx/store";
-
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 // for importing components
 import { TodoLayoutComponent } from './layouts/todo-layout/todo-layout.component';
@@ -45,6 +45,7 @@ import { EditListComponent } from './main/lists/components/manage-list/edit-list
 import {TasksEffects} from "./main/tasks/shared/store/tasks.effects";
 import {ListsEffects} from "./main/lists/shared/store/lists.effects";
 import {AppReducer} from "./store/app.reducer";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import {AppReducer} from "./store/app.reducer";
     StoreModule.forRoot(AppReducer),
     MatSelectModule,
     MatTooltipModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

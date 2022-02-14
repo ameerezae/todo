@@ -4,11 +4,13 @@ import * as TasksActions from './tasks.actions';
 export interface TasksState {
   tasksOfList: TaskModel[],
   completedTasks: TaskModel[],
+  isFetched: boolean,
 }
 
 const initialState: TasksState = {
   tasksOfList: [],
   completedTasks: [],
+  isFetched: false,
 }
 
 export function TasksReducer(
@@ -19,13 +21,15 @@ export function TasksReducer(
     case TasksActions.SET_TASKS_OF_LIST:{
       return{
         ...state,
-        tasksOfList: action.tasks
+        tasksOfList: action.tasks,
+        isFetched: true,
       }
     }
     case TasksActions.SET_COMPLETED_TASKS: {
       return {
         ...state,
-        completedTasks: action.tasks
+        completedTasks: action.tasks,
+        isFetched: true,
       }
     }
     case TasksActions.CLEAR_TASKS: {
@@ -34,6 +38,13 @@ export function TasksReducer(
         tasksOfList: []
       }
     }
+    case TasksActions.SET_FETCHING_TASKS_STATUS: {
+      return {
+        ...state,
+        isFetched: action.status
+      }
+    }
+
     default:{
       return {
         ...state

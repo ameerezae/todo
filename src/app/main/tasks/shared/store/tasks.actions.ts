@@ -3,6 +3,7 @@ import {TaskModel} from "../../../../shared/models/task.model";
 
 export const FETCH_TASKS_OF_LIST = '[Tasks] Fetch tasks of a list';
 export const SET_TASKS_OF_LIST = '[Tasks] Set tasks of a list';
+export const SET_FETCHING_TASKS_STATUS = '[Tasks] Set fetching Tasks status';
 export const FETCH_COMPLETED_TASKS = '[Tasks] Fetch completed tasks';
 export const SET_COMPLETED_TASKS = '[Tasks] Set completed tasks';
 export const DELETE_SINGLE_TASK = '[Tasks] Delete single tasks';
@@ -52,6 +53,12 @@ export class ClearTasks implements Action {
   readonly type = CLEAR_TASKS;
 }
 
+export class SetFetchingTaskStatus implements Action{
+  readonly type = SET_FETCHING_TASKS_STATUS;
+  constructor(public status: boolean) {
+  }
+}
+
 export class CreateNewTask implements Action{
   readonly type = CREATE_NEW_TASK;
 
@@ -66,3 +73,4 @@ export type TasksActions =
   | SetTasksOfList
   | SetCompletedTasks
   | ClearTasks
+  | SetFetchingTaskStatus

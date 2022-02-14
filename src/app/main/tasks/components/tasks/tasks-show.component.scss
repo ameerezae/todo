@@ -19,15 +19,6 @@ $green-task: #54AF51;
   color: gray;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
-  opacity: 0.03 !important;
-  background-color: #54AF51 !important;
-}
-
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-  background-color: #54AF51;
-}
-
 .task-item{
   background: white;
   border-top: 1px solid #dadada;
@@ -71,4 +62,40 @@ $green-task: #54AF51;
   color: gray;
   font-size: 10px;
   font-weight: lighter;
+}
+
+::ng-deep {
+  .mat-progress-bar-fill::after {
+    background-color: orange;
+  }
+  .mat-progress-bar-buffer {
+    background: #f1d4c2;
+  }
+  .mat-progress-bar {
+    border-radius: 2px;
+  }
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #54AF51;
+  }
+  .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: #54AF51 !important;
+  }
+}
+
+.empty-warn{
+  color: gray;
+  font-size: 1.5rem;
+  letter-spacing: 2mm;
+  font-weight: 400;
+  margin-top: 2rem;
+}
+
+.empty-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
+  color: gainsboro;
+  margin-top: 3rem;
 }

@@ -1,9 +1,12 @@
+<mat-progress-bar *ngIf="!isFetched" mode="indeterminate"></mat-progress-bar>
+
+
 <div class="list-title">
   <span>
     {{title}}
   </span>
 </div>
-<div fxLayout="row wrap" class="mt-1" *ngIf="tasks.length; else noTasks">
+<div fxLayout="row wrap" class="mt-1" *ngIf="tasks.length">
   <div fxFlex="100" class="mb-1" fxLayoutAlign="center center">
     <h2 class="tasks-subject">TASKS</h2>
   </div>
@@ -74,9 +77,20 @@
   </div>
 </div>
 
-<ng-template #noTasks>
-  <span>no such tasks</span>
-</ng-template>
+<div *ngIf="isFetched && tasks.length == 0"
+     fxLayout="row"
+     class="mt-3"
+     fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <span class="empty-warn">
+          THIS LIST IS EMPTY!
+    </span>
+    <mat-icon class="empty-icon">
+      edit
+    </mat-icon>
+  </div>
+
+</div>
 
 <button mat-fab
         matTooltip="Create New Task"
