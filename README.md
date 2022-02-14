@@ -35,9 +35,10 @@ use `npm install` to install them.
    <img src="./shots/completed-tasks.png" alt="img" width="770">
 
 1. Delete List: 
-   1. Warning when list has some tasks. \
+   1. Warning when list has some tasks.
    <img src="./shots/delete-list-1.png" alt="img" width="770">
-   1. Delete List if it has no tasks. \
+   
+   1. Delete List if it has no tasks.
    <img src="./shots/delete-list-2.png" alt="img" width="770">
 
 ### Authors
