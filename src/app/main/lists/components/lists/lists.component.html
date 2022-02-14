@@ -24,7 +24,7 @@
               color="warn"
               matTooltip="Delete List"
               matTooltipPosition="above"
-              (click)="deleteSingleList(list._id)">
+              (click)="deleteSingleList($event, list._id)">
         <mat-icon class="delete-icon">delete_outline</mat-icon>
       </button>
     </div>

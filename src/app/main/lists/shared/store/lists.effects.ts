@@ -8,6 +8,7 @@ import {Injectable} from "@angular/core";
 import {SnackService} from "../../../../shared/services/snack.service";
 import {MatDialog} from "@angular/material/dialog";
 import {TasksApiService} from "../../../tasks/shared/services/tasks-api.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ListsEffects {
@@ -17,7 +18,8 @@ export class ListsEffects {
     private listsService: ListsService,
     private tasksApiService: TasksApiService,
     private snackService: SnackService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
   }
 
@@ -60,11 +62,15 @@ export class ListsEffects {
     ofType(ListsActions.DELETE_EXISTING_LIST),
     switchMap((action: ListsActions.DeleteExistingList) =>
         this.tasksApiService.getTasksOfList(action.id).pipe(map((tasks: any) => {
-          if (tasks.length > 0) {
+          if (tasks.length > 0) {  // Not Deleting list when it has tasks.
             this.snackService.errorMessage('List has Tasks, First Delete them.')
           } else {
             this.listsService.deleteExistingList(action.id).subscribe(() => {
-              this.snackService.successMessage('List Deleted Successfully.')
+              this.snackService.successMessage('List Deleted Successfully.');
+              const activeList = window.location.href.split('/').pop()
+              if (activeList == action.id){  // navigate to main list
+                this.router.navigate([`lists/main`])
+              }
               this.store.dispatch(new ListsActions.FetchAllLists())
             })
           }

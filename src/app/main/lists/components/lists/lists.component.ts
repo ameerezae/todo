@@ -63,7 +63,8 @@ export class ListsComponent implements OnInit, OnDestroy {
       })
   }
 
-  deleteSingleList(id: string) {
+  deleteSingleList(event: Event,id: string) {
+    event.stopPropagation();
     this.store.dispatch(new ListsActions.DeleteExistingList(id));
   }
 
