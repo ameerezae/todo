@@ -1,3 +1,5 @@
+$green-task: #54AF51;
+
 .list-title{
   position: absolute;
   top: 25px;
@@ -10,6 +12,13 @@
   }
 }
 
+.tasks-subject{
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 1.2rem;
+  color: gray;
+}
+
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
   opacity: 0.03 !important;
   background-color: #54AF51 !important;
@@ -19,3 +28,47 @@
   background-color: #54AF51;
 }
 
+.task-item{
+  background: white;
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
+  margin-top: 3px;
+  padding: 5px 10px;
+}
+
+.done-task-item{
+  @extend .task-item;
+  border-left: 5px solid $green-task;
+}
+
+.ongoing-task-item{
+  @extend .task-item;
+  border-left: 5px solid orange;
+}
+
+.task-status {
+  color: white;
+  padding: 6px 7px;
+  border-radius: 14px;
+  font-weight: bold;
+}
+
+.ongoing-task{
+  @extend .task-status;
+  background: orange;
+  margin-right: 4px;
+  margin-left: 8px;
+}
+
+.completed-task{
+  @extend .task-status;
+  background: $green-task;
+  margin-right: 12px;
+  margin-left: 24px;
+}
+
+.field-title{
+  color: gray;
+  font-size: 10px;
+  font-weight: lighter;
+}

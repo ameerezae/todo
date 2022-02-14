@@ -7,6 +7,7 @@ import {map} from "rxjs/operators";
 import {Injectable} from "@angular/core";
 import {SnackService} from "../../../../shared/services/snack.service";
 import {MatDialog} from "@angular/material/dialog";
+import {TasksApiService} from "../../../tasks/shared/services/tasks-api.service";
 
 @Injectable()
 export class ListsEffects {
@@ -14,6 +15,7 @@ export class ListsEffects {
     private actions$: Actions,
     private store: Store,
     private listsService: ListsService,
+    private tasksApiService: TasksApiService,
     private snackService: SnackService,
     private dialog: MatDialog
   ) {
@@ -57,11 +59,16 @@ export class ListsEffects {
   deleteExistingList = this.actions$.pipe(
     ofType(ListsActions.DELETE_EXISTING_LIST),
     switchMap((action: ListsActions.DeleteExistingList) =>
-      this.listsService.deleteExistingList(action.id).pipe(map(
-        response => {
-          this.snackService.successMessage('List Deleted Successfully.')
-          this.store.dispatch(new ListsActions.FetchAllLists())
-        }
-      )))
+        this.tasksApiService.getTasksOfList(action.id).pipe(map((tasks: any) => {
+          if (tasks.length > 0) {
+            this.snackService.errorMessage('List has Tasks, First Delete them.')
+          } else {
+            this.listsService.deleteExistingList(action.id).subscribe(() => {
+              this.snackService.successMessage('List Deleted Successfully.')
+              this.store.dispatch(new ListsActions.FetchAllLists())
+            })
+          }
+        }))
+    )
   )
 }

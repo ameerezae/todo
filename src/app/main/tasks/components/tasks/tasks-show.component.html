@@ -3,29 +3,48 @@
     {{title}}
   </span>
 </div>
-<div fxLayout="row wrap" class="mt-1">
+<div fxLayout="row wrap" class="mt-1" *ngIf="tasks.length; else noTasks">
   <div fxFlex="100" class="mb-1" fxLayoutAlign="center center">
-    <h2>TASKS</h2>
+    <h2 class="tasks-subject">TASKS</h2>
   </div>
   <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="center center" *ngFor="let task of tasks">
-    <div fxFlex.gt-sm="60"
-         fxFlex.lt-md="65"
-         fxFlex.lt-sm="80" fxLayoutAlign="start center">
+    <div
+      [ngClass]="task.done ? 'done-task-item' : 'ongoing-task-item'"
+      fxFlex.gt-sm="70"
+      fxFlex.lt-md="75"
+      fxFlex.lt-sm="85" fxLayoutAlign="start center">
       <mat-checkbox *ngIf="allowedActions.completable"
                     [checked]="task.done"
                     class="mr-1"
                     matTooltip="Set As Completed"
                     matTooltipPosition="above"
                     (change)="toggleCompleteTask(task, $event)"></mat-checkbox>
-      <p>
-        {{task.title}}
-      </p>
-      <small class="ml-1" fxHide.lt-md>
+
+      <div fxLayout="column" style="width: 120px">
+        <small class="field-title">Task Title</small>
+        <small>{{task.title}}</small>
+      </div>
+      <div fxLayout="column" class="ml-1" fxHide.lt-lg>
+        <small class="field-title">Description</small>
+        <small>
           {{(task.description.length > 50) ?
           (task.description | slice:0:50) + '..' :
           (task.description)}}
-      </small>
+        </small>
+      </div>
       <div class="spacer"></div>
+      <div fxLayout="column">
+        <small class="field-title">Due Date</small>
+        <small>
+          {{task.date | date: 'dd/MM'}}
+        </small>
+      </div>
+      <div fxHide.lt-sm>
+        <small class="ongoing-task" *ngIf="!task.done; else comp">ONGOING</small>
+        <ng-template #comp>
+          <small class="completed-task">DONE</small>
+        </ng-template>
+      </div>
       <button *ngIf="allowedActions.editable"
               mat-icon-button
               color="primary"
@@ -52,11 +71,12 @@
         <mat-icon>delete_outline</mat-icon>
       </button>
     </div>
-    <div fxFlex.gt-sm="70" fxFlex.lt-md="75" fxFlex.lt-sm="85">
-      <mat-divider></mat-divider>
-    </div>
   </div>
 </div>
+
+<ng-template #noTasks>
+  <span>no such tasks</span>
+</ng-template>
 
 <button mat-fab
         matTooltip="Create New Task"
