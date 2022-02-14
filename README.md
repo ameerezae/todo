@@ -4,6 +4,9 @@
 ## Description
 Todo App using Angular13 and NgRx.
 ## Getting Started
+### Configurations
+Set api url in `src/assets/configs/configs.json` as `apiUrl`. Default is `http://localhost:3000/`.
+
 ### Dependencies
 Dependencies are listed in `package.json` file. \
 use `npm install` to install them.
